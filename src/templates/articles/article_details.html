@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="article-hero">
+    <div class="article-hero-inner">
+        <img src="{{ article.thumbnail.url }}">
+    </div>
+</div>
+
+<header class="article-header">
+    <h1>{{ article.title }} <small>{% if article.draft %}<span style='color:red;'>Draft</span>{% endif %}</small></h1>
+</header>
+
+<div class="article-content">
+    <div class="article-meta">
+            <span>{{ article.author }}</span>
+            <span>{{ article.publish }}</span>
+    </div>
+    <div class="article-body">
+        <p>{{ article.content }}</p>
+    </div>
+</div>
+{% endblock %}

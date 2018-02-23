@@ -1,0 +1,16 @@
+{% extends 'base.html' %} {% load crispy_forms_tags %} {% block content %}
+<div class="container">
+    <div class="article-create">
+        <h1>Create Article</h1>
+        <form class="create-form" action="{% url 'articles:create' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %} {{ form | crispy }}
+            <input type="submit" value="create">
+        </form>
+    </div>
+</div>
+
+{% load staticfiles %}
+<!-- Page specific javascript -->
+<script src="{% static 'js/slugify.js' %}"></script>
+
+{% endblock %}

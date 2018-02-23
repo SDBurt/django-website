@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+    <div class="article-list">
+        <div class="row">
+
+            <div class="col-lg-8">
+
+                <div class="row">
+                    {% for article in articles %}
+                    <div class="col-md-12">
+                        <div class="flex-md-row article rounded card">
+                            <div class="card-body">
+                                <h1 class="mb-0">{{ article.title }}</h1>
+                                <p class="mb-0 text-muted">{{ article.created }}</p>
+                                <p class="text-muted">By {{ article.author }}</p>
+                                <p>{{ article.snippet }}</p>
+                                <a href="{% url 'articles:details' slug=article.slug %}">Continue Reading</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div class="col-lg-4">
+                {% if user.is_authenticated %}
+                <p>Profile</p>
+ {% for user_article in user_articles %}
+<div class="col-md-12">
+    <a href="{% url 'articles:details' slug=user_article.slug %}">{{ user_article.title }}</a>
+</div>
+{% endfor %} {% endif %}
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endblock %}
