@@ -126,19 +126,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT =  os.path.join(os.path.dirname(BASE_DIR), "static_in_pro", "static_root")
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static_in_pro", "our_static"),
+    os.path.join(BASE_DIR, "static"),
 ]
+
+STATIC_ROOT =  os.path.join(os.path.dirname(BASE_DIR), "static_cdn")
+
 
 # Media support
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_pro", "media_root")
-
-MEDIAFILES_DIRS = [
-    os.path.join(BASE_DIR, "static_in_pro", "media_root"),
-]
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "media_cdn")
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"

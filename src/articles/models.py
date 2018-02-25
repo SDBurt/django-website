@@ -9,6 +9,8 @@ class PostManager(models.Manager):
     def active(self, *args, **kwargs):
         return super(PostManager, self).filter(draft=False).filter(publish__lte=timezone.now())
 
+def upload_location(instance, filename):
+    return "%s/%s" %(instance.id, filename)
 
 class Article(models.Model):
     '''Model for articles'''
@@ -17,7 +19,7 @@ class Article(models.Model):
     content = models.TextField()
     created = models.DateTimeField(auto_now=False, auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
-    thumbnail = models.ImageField(default='placeholder.jpg', blank=True)
+    image = models.ImageField(upload_to=upload_location, null=True, blank=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     draft = models.BooleanField(default=False)
     publish = models.DateTimeField(auto_now=False, auto_now_add=False)
@@ -37,7 +39,7 @@ def create_slug(instance, new_slug=None):
     slug = slugify(instance.title)
     if new_slug is not None:
         slug = new_slug
-    qs = Post.objects.filter(slug=slug).order_by("-id")
+    qs = Article.objects.filter(slug=slug).order_by("-id")
     exists = sq.exists()
     if exists:
         new_slug = "%s-%s" % (slug, qs.first().id)
